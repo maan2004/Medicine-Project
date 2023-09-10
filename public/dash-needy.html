@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!doctype html>
+    <html lang="en">
+        <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>dash-donor</title>
+      <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script>
+           $(document).ready(function () {
+            function setActiveUser() {
+        
+        var au = localStorage.getItem("activeKuch");
+        // alert(au);
+        $("#needywelcome").html(au);
+      }
+      setActiveUser() ;
+
+
+
+            $("#logout").click(function(){
+                      
+            localStorage.removeItem("activeKuch");
+            // window.confirm("if you want to exit");
+           window.location.replace("index.html");
+           
+
+            
+
+})
+
+          });
+        </script>
+    <style>
+      
+      #btn1
+      {
+        margin-left: 200px;
+      }
+      #btn2
+      {
+        margin-left: 20px;
+      }
+      
+    </style>
+    </head>
+     
+    <body><nav class="navbar bg-body-tertiary  ">
+      <div class="container-fluid " style="background-color:rgb(198, 202, 204); height: 55; margin-bottom: 0;">
+        <a class="navbar-brand" href="#">
+          <img src="pics/site logo1.jpg"  width="55" height="55" style="border-radius: 50%;" class="d-inline-block align-text-center">
+         <b> WELCOME:-
+        </b> 
+        <span id="needywelcome">*</span>
+          
+        </a>
+      </div>
+    </nav>
+      <div class="row" style="margin-top: 30px;" >
+        <div class="col-md-3 mb-3 mb-sm-0" id="btn1">
+          <div class="card" style="width: 15rem;">
+            <div class="card-body" >
+              <div >
+                <center> <img src="pics/login.png" width="150px" height="150px" style="border-radius: 50%;"  alt="">
+                </center>
+              </div>
+    
+              <center> <a href="profile-needy.html" class="btn btn-primary mt-5">Details</a></center>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 m-ms-2" id="btn2">
+          <div class="card" style="width: 15rem;">
+            <div class="card-body">
+              <div>
+                <center> <img src="pics/kisspng-pills-medication-medicine-medical-equipment-clip-5aec8fef50c608.0366378615254527833309.jpg" width="150px" height="150px" style="border-radius: 50%; " alt="">
+                </center>
+              </div>
+    
+              <center> <a href="finder-med.html" class="btn btn-primary mt-5">Find Medicines</a></center>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-md-3 mb-sm-0" id="btn2">
+          <div class="card" style="width: 15rem;">
+            <div class="card-body">
+              <div>
+                <center> <img src="pics/logout.jpg" width="150px" height="150px" style="border-radius: 50%; " alt="">
+                </center>
+              </div>
+             <center>
+              <div class="mt-5">
+              <button type="button" id="logout" class="btn btn-primary" >
+                Logout
+              </button>
+              </div>
+        </center>
+        
+            </div>
+          </div>
+        </div>
+    
+    
+    
+    
+    
+    </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+          crossorigin="ano  nymous"></script>
+    </body>
+    
+    </html>
+</body>
+</html>

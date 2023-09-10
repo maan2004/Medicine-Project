@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script/angular.min.js"></script>
+    <script>
+        var module=angular.module("myModule",[]);
+        module.controller("myController",function($scope,$http){
+                $scope.fn="Gabbar SIngh";
+                $scope.ln="";
+                $scope.full;
+                $scope.doHello=function()
+                {
+                    alert("Hello "+$scope.fn);
+                }
+                $scope.doConact=function()
+                {
+                    $scope.full=$scope.fn+" "+$scope.ln;
+                }
+
+                /*$scope.jsonArray=
+                [
+                    {email:"bcebti@gmail.com",pwd:'Admin123',picname:'x.jpg'},
+                {email:"sst@gmail.com",pwd:'Admin123',picname:'xx.jpg'},
+                {email:"real@gmail.com",pwd:'Admin123',picname:'x.jpg'}
+                    
+                ] */
+
+                $scope.jsonArray;
+
+                //-------------
+                $scope.doDelete=function(email)
+                {
+                    if(confirm("R U Sure?")==false)
+                        return;
+                        var url="/do-angular-delete?emailkuch="+email;//+"&pwd="+pwdkuch;
+                        $http.get(url).then(done,fail);
+                        function done(response)
+                        {
+                           alert(response.data);
+                           $scope.fetchRecords();
+
+                        }
+                     function fail(response)
+                        {
+                                alert(response.data);
+                        }   
+
+                }
+                //==============
+                $scope.fetchRecords=function()
+                {
+                    var url="/get-angular-all-records";
+                    $http.get(url).then(done,fail);
+                    function done(response)
+                        {
+                            alert(JSON.stringify(response.data));
+                            $scope.jsonArray=response.data;
+
+                        }
+                     function fail(response)
+                        {
+                                alert(response.data);
+                        }   
+                }
+                
+        })
+    </script>
+</head>
+<body ng-app="myModule" ng-controller="myController">
+     <center>  
+         <input type="text" ng-model="fn"> 
+         <input type="text" ng-model="ln"> 
+
+         <input type="button" value="Say Hello" ng-click="doHello();">
+         <input type="button" value="Join" ng-click="doConact();">
+         <p>
+            {{fn}}
+         </p>
+         <p>
+            Full Name={{full}}
+         </p>
+         <hr>
+         <input type="button" ng-click="fetchRecords();" value="fetchRecords">
+         <table width="800" border="1">
+                <tr>
+                    <th>Sr.No</th> <th>Email id</th> <th>Password</th><th>Pic</th><th>Prev</th><th>Operations</th>
+                    <tr ng-repeat="obj in jsonArray">
+                        <td>{{$index+1}}</td>
+                        <td>{{obj.email}}</td>
+                        <td>{{obj.password}}</td>
+                        <td>{{obj.picname}}</td>
+                        <td align="center">
+                            <img src="uploads/{{obj.picname}}" alt="" width="100" height="100">
+                        </td>
+                        <td align="center">
+                                 <input type="button" value="Delete" ng-click="doDelete(obj.email);">
+                                <input type="button" value="Block" ng-click="doBlock(obj.email);">
+                                <input type="button" value="Resume" ng-click="doResume(obj.email);">
+                        </td>
+                    </tr>
+                </tr>
+
+         </table>
+    </center>
+    
+</body>
+</html>
+
+
+
+
+

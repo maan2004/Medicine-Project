@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="script/angular.min.js"></script>
+    <script>
+        var module = angular.module("finder-med", []);
+        module.controller("mycontroller", function ($scope, $http) {
+            //================================================================================
+            $scope.selcity;
+            $scope.selmed;
+
+
+            $scope.jsoncity;
+            $scope.fetchCities = function () {
+                var url = "/get-cities";
+                $http.get(url).then(done, fail);
+                function done(resp) {
+
+                    // alert(JSON.stringify(resp.data));
+                    $scope.jsoncity = resp.data;
+
+
+                }
+                function fail(resp) {
+                    alert(resp.data);
+                }
+            }
+            $scope.jsonmed;
+            $scope.fetchmed = function () {
+                var url = "/get-med";
+                $http.get(url).then(done, fail);
+                function done(resp) {
+                    // alert(JSON.stringify(resp.data));
+                    $scope.jsonmed = resp.data;
+
+
+                }
+                function fail(resp) {
+                    alert(resp.data);
+                }
+            }
+            //===========================================================
+            $scope.jsonget;
+            $scope.fetchDonors = function () {
+                var url = "/fetch-donors?medKuch=" + $scope.selmed.med + "&cityKuch=" + $scope.selcity.city;
+                
+                $http.get(url).then(done, fail);
+                function done(resp) {
+                    // alert(JSON.stringify(resp.data));
+                    $scope.jsonget = resp.data;
+
+                }
+                function fail(resp) {
+                    alert(resp.data);
+                }
+            }
+            $scope.selOneObj;
+            $scope.doShowOne = function (selIndex) {
+                $scope.selOneObj = $scope.jsonget[selIndex];
+            }
+
+        })
+
+
+
+    </script>
+
+</head>
+
+<body ng-app="finder-med" ng-controller="mycontroller" ng-init="fetchmed();fetchCities();">
+    <nav class="navbar bg-body-tertiary ">
+        <div class="container-fluid " style="background-color:rgb(198, 202, 204); height: 55; margin-bottom: 0;">
+          <a class="navbar-brand" href="#">
+            <img src="pics/site logo1.jpg"  width="55" height="55" style="border-radius: 50%;" class="d-inline-block align-text-center">
+           <b> helpRX
+            
+          </a>
+        </div>
+      </nav>
+    <center>
+        <h1>FIND MEDICINES</h1>
+    </center><center>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mt-5">
+                    Select City <select ng-options="obj.city  for obj in jsoncity" ng-model="selcity"
+                        ng-change="Cities();">
+                        <option value="">Select</option>
+                    </select>
+
+                    Select Medicine <select ng-options="obj.med  for obj in jsonmed" ng-model="selmed"
+                        ng-change="med();">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mt-5"><input type="button" class="btn btn-outline-success" value="Get DONORS"
+                        ng-click="fetchDonors();" style="width: 300px"></div>
+            </div>
+
+        </div>
+    </center>
+
+
+
+    <div class="row">
+        <div class="col-md-3" ng-repeat="obj in jsonget">
+            <div class="card">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <font style="color: brown;">Name:-</font>{{obj.name}}
+                    </h5>
+                    <h5>
+                        <font style="color: brown;">Contact:-</font>{{obj.mobile}}
+                    </h5>
+                    <h5>
+                        <font style="color: brown;">Available Hours:-</font>{{obj.ahours}}
+                    </h5>
+                          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetails" ng-click="doShowOne($index);">Details</a>
+                          
+                </div>
+            </div>
+        </div>
+                  
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalDetails">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="uploads/{{selOneObj.pic}}" width="80" height="80" alt="">
+                    <h5 class="modal-title">{{selOneObj.emailid}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6><b>Name: </b>{{selOneObj.name}}</h6>
+                    <h6><b>Address: </b>{{selOneObj.address}}</h6>
+                    <h6><b>City: </b>{{selOneObj.city}}</h6>  
+                    <h6><b>Medicine: </b>{{selOneObj.med}}</h6>               
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script/angular.min.js"></script>
+    <script>
+        var module=angular.module("myresult",[]);
+        module.controller("mycontroller",function($scope){
+            $scope.cpp="";
+            $scope.java="";
+            $scope.web="";
+            
+           $scope.dosum=function()
+           {
+            $scope.sum=parseFloat($scope.cpp)+parseFloat($scope.web)+parseFloat($scope.java);
+           }
+           $scope.doper=function()
+           {
+            $scope.per=($scope.sum)*100/300;
+           }
+
+        })
+    </script>
+</head>
+<body ng-app="myresult" ng-controller="mycontroller">
+    <center>
+        <h3>Markscard</h3>
+        
+   Marks in CPP <input type="text" ng-model="cpp"><br><br>
+   Marks in Java <input type="text" ng-model="java"><br><br>
+   Marks in web <input type="text" ng-model="web"><br><br>
+   Total Marks <input type="text" ng-model="sum"><br><br>
+   Percentage <input type="text" ng-model="per"><br><br>
+   <input type="button" value="SUM" name="" ng-click="dosum();" id="">
+   <input type="button" value="Percentage" name="" ng-click="doper();" id="">
+    </center>
+    
+</body>
+</html>

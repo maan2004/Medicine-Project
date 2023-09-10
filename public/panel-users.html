@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="script/angular.min.js"></script>
+    <script>
+        var module=angular.module("users-panel",[]);
+        module.controller("mycontroller",function($scope,$http){
+ //================================================================================
+                 $scope.jsonArray;
+            $scope.fetchRecords=function()
+            {
+                var url="/get-users-records";
+                $http.get(url).then(done,fail);
+                function done(resp)
+                {
+                    // alert(JSON.stringify(resp.data));
+                    $scope.jsonArray=resp.data;
+
+                }
+                function fail(resp)
+                {
+                    alert(resp.data);
+                }
+            }
+            
+//================================================================================            
+          $scope.doblock=function(email)
+            { 
+                var url="/block-user?kuchemail="+email;
+                $http.get(url).then(done,fail);
+                function done(resp)
+                {
+                    // alert(JSON.stringify(resp.data));
+                    alert(resp.data);
+                    $scope.fetchRecords();
+
+                }
+                function fail(resp)
+                {
+                    alert(resp.data);
+                }
+            }
+            $scope.doresume=function(email)
+            { 
+                var url="/resume-user?kuchemail="+email;
+                $http.get(url).then(done,fail);
+                function done(resp)
+                {
+                    // alert(JSON.stringify(resp.data));
+                    alert(resp.data);
+                    $scope.fetchRecords();
+
+
+
+
+
+                }
+                function fail(resp)
+                {
+                    alert(resp);
+                }
+            }
+        
+        })
+
+
+        
+    </script>
+</head>
+<body ng-app="users-panel" ng-controller="mycontroller">
+    <center>
+        <input type="button" value="Fetch-Records" style="margin-bottom: 10px ;" ng-click="fetchRecords();">
+        <table width="900" border="1">
+        <tr>
+            <th>Sr.No</th><th>Email</th><th>DOS</th><th>Type</th><th>Status</th>
+            <tr ng-repeat="obj in jsonArray">
+                <td>{{$index+1}}</td>
+                <td>{{obj.email}}</td>
+                <td>{{obj.dos}}</td>
+                <td>{{obj.type}}</td>
+                <td>{{obj.status}}</td>
+                
+            <td align="center">
+                <input type="button" ng-click="doblock(obj.email);" value="Block">
+                <input type="button" value="Resume" ng-click="doresume(obj.email);">
+            </td>
+        </tr>
+        </tr>   
+
+</table>
+    </center>
+</body>
+</html>

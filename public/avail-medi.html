@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" crossorigin="anonymous"></script>
+    <style>
+        .font{
+            font-weight: bold;
+        }
+    </style>
+
+
+    <script>
+        
+        $(document).ready(function () {
+        $("#btnavail").click(function () {
+
+var email = $("#txtemail").val();
+var medname = $("#txtmedname").val();
+var expdate = $("#txtexpdate").val();
+var packing = $("#txtpacking").val();
+var qty = $("#txtqty").val();
+
+
+var obj = {
+  type: "get",
+  url: "/avail-med",
+  data: {
+    kemail: email,
+    kmedname:medname,
+    kexpdate:expdate,
+    kpacking:packing,
+    kqty:qty,
+
+
+  }
+}
+$.ajax(obj).done(function (resp) {
+
+  alert(resp);
+
+}).fail(function (err) {
+
+  alert(err);
+
+})
+})
+function setActiveUser()
+    {
+      var au=localStorage.getItem("activeKuch");
+      // alert(au);
+      $("#txtemail").val(au).prop("readonly",true);
+    }
+    setActiveUser();
+    });
+    </script>
+</head>
+
+<body>  <nav class="navbar bg-body-tertiary ">
+    <div class="container-fluid " style="background-color:rgb(198, 202, 204); height: 55; margin-bottom: 0;">
+      <a class="navbar-brand" href="#">
+        <img src="pics/site logo1.jpg"  width="55" height="55" style="border-radius: 50%;" class="d-inline-block align-text-center">
+       <b> helpRX
+        
+      </a>
+    </div>
+  </nav>
+<center>
+    <h1>AVAIL MEDICINES</h1>
+</center>
+ 
+  <div class="container">
+        <div class="col-md-6 mt-3">
+            <label for="txtemail" class="form-label font ">Email</label>
+            <input type="text" class="form-control" id="txtemail"
+                placeholder="">
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-3">
+                <label for="txtmedname" class="form-label font">Medicine Name</label>
+                <input type="text" class="form-control" id="txtmedname"
+                    placeholder="">
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="txtexpdate" class="form-label font">Expiry Date</label>
+                <input type="date" class="form-control" id="txtexpdate"
+                    placeholder="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mt-3">
+                <label for="txtpacking" class="form-label font">Packing</label>
+                <select name="" class="form-select" id="txtpacking">
+                    
+                <option value="Bottles">Bottles</option>
+                <option value="Capsules">Capsules</option>
+                <option value="Tablets">Tablets</option>
+                
+               </select>
+
+  
+                    
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="txtqty" class="form-label font">Quantity</label>
+                <input type="number" min="1" class="form-control" id="txtqty"
+                    placeholder="">
+                
+            </div>
+        </div>
+        <div class="mt-5">
+            <center>
+        <button type="button" class="btn btn-outline-success" id="btnavail">Avail Medicines</button>
+            </center>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
